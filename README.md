@@ -235,3 +235,64 @@ clean:
 - This is the complete makefile for all the examples we've seen so far. The first five lines are nothing special, but for the last example we'll need two lines. First we invent an object name for our combined module, second we tell **make** what object files are part of that module.
 
 				
+### Modules Vs Programs
+- Some things that are universal to all kernel module, normal programs typicaly start with a main() function
+- Kernel modules are different in the aspect that they will always start an  end with a module_init and ends with a module_exit or cleanup_module
+
+### checking symbols that have been exported by your kernel
+- they can be found in /proc/ kallsyms 
+- an example of a symbol exported by the kernel is printk
+- these symbols are defined by the kernel and do not come from an external library 
+- they are initialized when your km is insmoded, this because kms are object files 
+### The difrence between syscalls and  regular functions
+- regular functions such s printf exist purely in the user space (ring 3), while system calls exist on the kernel level directly on the behalf of the kernel itself
+- all functions like printf do is format data into strings and output them from a lower level syscall like write().
+
+### Things related to the CPU
+- Your CPU can run in different modes each mode gives you a different level of freedom, 
+- the intell 80386 architecture has 4 modes 
+- those 4 modes are called rings 
+- unix only uses two rings (ring 0 being the highest 'supervisor mode')
+### Name space notes
+- When making global varies they become apart of everyone elses list of global variables and cause name space pollution (which i when global  variables of the same name begin causing problems) 
+- Ways to combat this is to declare your variables as static and use well define prefix symbols 
+- if you would like too avoid declaring everything as static, another option is to create/declare a symbol table
+
+## Checking Module info 
+- to check a kernel modules information simply use the command "modinfo example.ko"
+
+### Code space 
+- When a process i created, the kernel sets aside a portion of real physical mempory, and it gives it to a process to use for executing code 
+- this memory begins with 0x00000000 and extends to whatever it needs 
+
+## Major and Minor numbers
+### [IMPOERTANT] If you want to see which major numbers have been assigned, you can look at /usr/src/linux/Documentation/devices.txt. or in /proc/devices
+- THESE SCRENSHOTS WERE TAKEN FROM THE DIRECTORY /dev/
+![[Pasted image 20220201005729.png]]
+***************************************************************
+- Major number tell you with drivers are beg used to access the hardware 
+- all device files with the same major number are being controlled by the same driver 
+- minor numbers is the second number 
+- minor numbers distinguishes the between the different hardware it  uses 
+So devices files can have the same major number butt may have different minor numbers for the hardware they control 
+![[Pasted image 20220201010255.png]]
+## Different types of devices
+- Devices come in two types, character devices and block devices 
+- This can be seen by the first character in the permissions area, it will be a "b" for block and a "c" for character
+************************************************
+![[Pasted image 20220201010701.png]]
+*************************************************
+- The major differences between block devices and character devices is the character devices can use s many bits as they need
+- block devices can only can buffer or function with fixed block sizes 
+- modes devices are character devices 
+- - note that when a device file is used the file is acesse by the kernel useing the majhor number, which also means the kernel does not really need to know the minor number
+
+## Making device files
+- creating device files can be done with the command 
+```bbash
+mknod example c 12 2 
+```
+	- to breakdown the command, mknod is called to create a new device file
+	- next is the name of the device file
+	- then the device file type which is either a charcter or a block, in this example it is a charcter 
+	- lastly the major and minor numbers are established, major being to destinguish the driver and the minor for what peice of hardware the device file is using 
