@@ -1,4 +1,13 @@
 # Simple-Kernel-Driver
+### INTRODUCTION 
+- A kernel module is a loadable kernel object that is executed directly onto the kernel.
+- Kernel modules exist on ring zero [Operating systems typically have 4 rings including '0' ]
+###### Understanding the different rings
+- Ring 0 is the kernel
+- Ring 1 is device drivers
+- ring 2 is also used for device drivers
+- ring 3 is for applications
+-- The ring level has a direct correlation between the application/modules privileges 
 ## Building module
 - use the following commands 
 ```bash
