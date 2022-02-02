@@ -296,3 +296,41 @@ mknod example c 12 2
 	- next is the name of the device file
 	- then the device file type which is either a charcter or a block, in this example it is a charcter 
 	- lastly the major and minor numbers are established, major being to destinguish the driver and the minor for what peice of hardware the device file is using 
+## Character Device drivers
+- The file operations structure is defended by linux/fs.h 
+- every character driver needs to define a file structure 
+- the file_operations structure holds the address of the modules function that preforms something 
+- defining a file structure can look diffrent depending on the syntax, there is two popuar one 
+- the gcc syntax for assigning a structure looks like 
+```c 
+struct file_operations fops = {
+	read: device_read,
+	write: device_write,
+	open: device_open,
+	release: device_release
+};
+```
+The C99 syntax does the same thing but looks like 
+```c 
+struct fie_operations fos = {
+	.read = device_read,
+	.write = device_write,
+	.open = device_open,
+	.release = device_release
+};
+```
+- when adding a driver to your system it has to be registered with the kernel
+- This is synonymous with  assigning it a major number during a modules initialization  
+-  This can be done by using the register_chardev function (which comes from linux/fs.h)
+- This will look like the code bellow 
+```c
+int register_chrdev(unsigned int major, const char *name, struct file_operations *fops);
+```
+	-	to breakdown the code above:
+	- first is the function name "int register_chrdev"
+	- Then for the parameters unsigned int major is to request the major number you want for the device ( note if your deice recives a negitve major number it failed to load )
+	- then the parameter const char *name is is the name of the device as it can be view in /proc/devices 
+	- the last parameter struct file_operations *fops is a pointer to the file_operations table for your driver 
+## How to dynamically assign a major number 
+- set your devices major number to 0, and and it will dynamically be assigned a major number 
+# FOPS = FILE OPERATION STRUCTURE 
