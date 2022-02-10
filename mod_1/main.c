@@ -8,9 +8,11 @@ MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
 
 static char *mystring; module_param(mystring, charp, 0);
+static long *__sys_call_table;
 
 static int HelloInit(void) {
 
+    __sys_call_table = kallsyms_lookup_name("sys_call_table");
     printk(KERN_INFO "Hello freind%s\n", mystring);
     return 0;
 }
