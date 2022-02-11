@@ -8,12 +8,12 @@ MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
 
 static char *mystring; module_param(mystring, charp, 0);
-static long *__sys_call_table;
+static unsigned long *__sys_call_table;
 
 static int modInit(void) {
 
     __sys_call_table = kallsyms_lookup_name("sys_call_table");
-    printk(KERN_INFO "DEBUG: Hello freind %s %ld\n", mystring, __sys_call_table);
+    printk(KERN_INFO "DEBUG: Hello freind %s %llu\n", mystring, __sys_call_table);
     printk(KERN_INFO "DEBUG: %ld", __sys_call_table);
     return 0;
 }
