@@ -4,7 +4,7 @@
 #include <linux/moduleparam.h>
 #include <linux/kallsyms.h>
 
-static int HelloInit(void);
+static int modInit(void);
 
-static void HelloExit(void);
+static void modExit(void);
 
