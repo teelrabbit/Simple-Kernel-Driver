@@ -20,7 +20,7 @@ static int modInit(void) {
 
 static void modExit(void) {
 
-    printk(KERN_INFO "The short life of km\n");
+    printk(KERN_INFO "DEBUG: The short life of km\n");
 }
 
 module_init(modInit);
