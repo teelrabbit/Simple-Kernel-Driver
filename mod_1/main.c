@@ -6,6 +6,7 @@ MODULE_LICENSE("GPL");
 #define DRIVER_DESC "simple kernel driver"
 MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
+MODULE_VERSION("0.0.1")
 
 static char *mystring; module_param(mystring, charp, 0);
 static unsigned long *__sys_call_table = NULL; //null=0
