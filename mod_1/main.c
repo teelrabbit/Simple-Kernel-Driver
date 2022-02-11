@@ -8,7 +8,7 @@ MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
 
 static char *mystring; module_param(mystring, charp, 0);
-static unsigned long *__sys_call_table;
+static unsigned long *__sys_call_table = NULL; //null=0
 
 static int modInit(void) {
 
