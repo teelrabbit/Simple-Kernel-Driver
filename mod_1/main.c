@@ -13,7 +13,7 @@ static long *__sys_call_table;
 static int modInit(void) {
 
     __sys_call_table = kallsyms_lookup_name("sys_call_table");
-    printk(KERN_INFO "DEBUG: Hello freind %s\n", mystring);
+    printk(KERN_INFO "DEBUG: Hello freind %s %ld\n", mystring, __sys_call_table);
     printk(KERN_INFO "DEBUG: %ld", __sys_call_table);
     return 0;
 }
