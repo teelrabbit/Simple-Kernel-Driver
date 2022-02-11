@@ -14,7 +14,7 @@ static unsigned long *__sys_call_table = NULL; //null=0
 static int modInit(void) {
 
     __sys_call_table = (unsigned long*)kallsyms_lookup_name("sys_call_table");
-    printk(KERN_INFO "DEBUG: Syscall Table located at: %s %llu\n", mystring, __sys_call_table);
+    printk(KERN_INFO "DEBUG: Syscall Table located at: %s %lu\n", mystring, __sys_call_table);
     //printk(KERN_INFO "DEBUG: %ld", __sys_call_table);
     return 0;
 }
