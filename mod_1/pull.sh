@@ -8,4 +8,5 @@ sudo insmod main.ko
 sudo rmmod main
 clear
 modinfo main.ko
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 dmesg
