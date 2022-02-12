@@ -11,6 +11,12 @@ MODULE_VERSION("0.0.2");
 static char *mystring; module_param(mystring, charp, 0);
 static unsigned long *__sys_call_table = NULL; //null=0
 
+
+int Major;
+static int Device_Open = 0;
+static char msg[BUF_LEN]={0};
+static char *msg_Ptr;
+
 struct fie_operations fops = {
 	.read = device_read,
 	.write = device_write,
