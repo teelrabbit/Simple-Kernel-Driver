@@ -4,6 +4,7 @@
 #include <linux/moduleparam.h>
 #include <linux/kallsyms.h>
 #include <linux/unistd.h> //contains syscall names/numbers
+#include <linux/version.h>
 
 static int modInit(void);
 
