@@ -7,4 +7,5 @@ sudo dmesg --clear
 sudo insmod main.ko
 sudo rmmod main
 clear
+modinfo main.ko
 dmesg
