@@ -17,11 +17,11 @@ static int Device_Open = 0;
 static char msg[BUF_LEN]={0};
 static char *msg_Ptr;
 
-struct fie_operations fops = {
-	.read = device_read,
-	.write = device_write,
-	.open = device_open,
-	.release = device_release
+static struct file_operations fops = {
+    .read    = device_read,
+    .write   = device_write,
+    .open    = device_open,
+    .release = device_release
 };
 
 static int modInit(void) {
