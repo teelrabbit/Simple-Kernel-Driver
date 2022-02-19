@@ -16,34 +16,6 @@ struct proc_dir_entery *Our_Proc_File;
 #define procfs_name "helloworld"
 
 
-int procfile_read(char *buffer, char **buffer_location, off_t offset, int buffer_length, int *eof, void *data)
-{
-	int ret;
-	
-	printk(KERN_INFO "procfile_read (/proc/%s) called\n", procfs_name);
-	
-	/* 
-	 * We give all of our information in one go, so if the
-	 * user asks us if we have more information the
-	 * answer should always be no.
-	 *
-	 * This is important because the standard read
-	 * function from the library would continue to issue
-	 * the read system call until the kernel replies
-	 * that it has no more information, or until its
-	 * buffer is filled.
-	 */
-	if (offset > 0) {
-		/* we have finished to read, return 0 */
-		ret  = 0;
-	} else {
-		/* fill the buffer, return the buffer size */
-		ret = sprintf(buffer, "HelloWorld!\n");
-	}
-
-	return ret;
-}
-
 static int modInit(void) {
 
     __sys_call_table = (unsigned long*)kallsyms_lookup_name("sys_call_table");
