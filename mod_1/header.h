@@ -6,6 +6,7 @@
 #include <linux/unistd.h> //contains syscall names/numbers
 #include <linux/version.h>
 #include <linux/fs.h>
+#include <linux/proc_fs.h>	
 
 static int modInit(void);
 
