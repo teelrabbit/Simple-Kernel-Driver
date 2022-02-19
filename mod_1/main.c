@@ -49,12 +49,15 @@ static int modInit(void) {
     __sys_call_table = (unsigned long*)kallsyms_lookup_name("sys_call_table");
     printk(KERN_INFO "DEBUG: Syscall Table located at: %s %lu\n", mystring, __sys_call_table);
     //printk(KERN_INFO "DEBUG: %ld", __sys_call_table);
+    Our_Proc_File = create_proc_entry(procfs_name, 0644, NULL);
+	
     return 0;
 }
 
 static void modExit(void) {
 
     printk(KERN_INFO "DEBUG: The short life of km\n");
+    printk(KERN_INFO "/proc/%s created\n", procfs_name);
 }
 
 module_init(modInit);
