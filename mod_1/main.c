@@ -49,8 +49,24 @@ static int modInit(void) {
     __sys_call_table = (unsigned long*)kallsyms_lookup_name("sys_call_table");
     printk(KERN_INFO "DEBUG: Syscall Table located at: %s %lu\n", mystring, __sys_call_table);
     //printk(KERN_INFO "DEBUG: %ld", __sys_call_table);
-    Our_Proc_File = create_proc_entry(procfs_name, 0644, NULL);
+
+    	Our_Proc_File = create_proc_entry(procfs_name, 0644, NULL);
 	
+	if (Our_Proc_File == NULL) {
+		remove_proc_entry(procfs_name, &proc_root);
+		printk(KERN_ALERT "Error: Could not initialize /proc/%s\n",
+		       procfs_name);
+		return -ENOMEM;
+	}
+
+	Our_Proc_File->read_proc = procfile_read;
+	Our_Proc_File->owner 	 = THIS_MODULE;
+	Our_Proc_File->mode 	 = S_IFREG | S_IRUGO;
+	Our_Proc_File->uid 	 = 0;
+	Our_Proc_File->gid 	 = 0;
+	Our_Proc_File->size 	 = 37;
+
+	printk(KERN_INFO "/proc/%s created\n", procfs_name);		
     return 0;
 }
 
